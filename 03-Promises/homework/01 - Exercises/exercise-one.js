@@ -29,6 +29,12 @@ function problemA() {
 
   // promise version
   // Tu código acá:
+  exerciseUtils.promisifiedReadFile('./poem-one/stanza-02.txt')
+    .then((stanza01) => {
+      exerciseUtils.blue(stanza01)
+      return exerciseUtils.promisifiedReadFile("./poem-one/stanza-03.txt")
+    })
+    .then(stanza02 => exerciseUtils.blue(stanza02))
 }
 
 function problemB() {
@@ -43,6 +49,11 @@ function problemB() {
 
   // promise version
   // Tu código acá:
+  exerciseUtils.promisifiedReadFile('./poem-one/wrong-file-name.txt')
+    .then(
+      stanza => exerciseUtils.blue(stanza)
+    )
+    .catch(error => exerciseUtils.magenta(new Error(error)))
 }
 
 function problemC() {
@@ -61,4 +72,13 @@ function problemC() {
 
   // promise version
   // Tu código acá:
+  exerciseUtils.promisifiedReadFile('./poem-one/stanza-03.txt')
+    .then(
+      stanza => {
+        exerciseUtils.blue(stanza)
+        return exerciseUtils.promisifiedReadFile('./poem-one/stanza-04.txt')
+      }
+    )
+    .then(stanza => exerciseUtils.blue(stanza))
+    .catch(error => exerciseUtils.magenta(new Error(error)))
 }

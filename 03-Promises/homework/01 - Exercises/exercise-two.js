@@ -1,5 +1,6 @@
 "use strict";
 
+const { error } = require("console");
 let exerciseUtils = require("./utils");
 
 let args = process.argv.slice(2).map(function (st) {
@@ -28,6 +29,16 @@ function problemA() {
 
   // promise version
   // Tu código acá:
+
+  const prom1 = exerciseUtils.promisifiedReadFile('./poem-two/stanza-01.txt')
+    .then(stanza => exerciseUtils.blue(stanza))
+
+  const prom2 = exerciseUtils.promisifiedReadFile('./poem-two/stanza-02.txt')
+    .then(stanza => exerciseUtils.blue(stanza))
+
+  Promise.all([prom1, prom2])
+    .finally(() => console.log('done'))
+
 }
 
 function problemB() {
@@ -47,6 +58,11 @@ function problemB() {
 
   // promise version
   // Tu código acá:
+  filenames.forEach((filename) => {
+    exerciseUtils.promisifiedReadFile(filename)
+      .then(stanza => exerciseUtils.blue(stanza))
+      .catch(error => exerciseUtils.magenta(new Error(error)))
+  })
 }
 
 // EJERCICIO EXTRA
@@ -54,5 +70,11 @@ function problemC() {
   let fs = require("fs");
   function promisifiedWriteFile(filename, str) {
     // tu código acá:
+    return new Promise(function (resolve, reject) {
+      fs.writeFile(filename, 'utf-8', (err, str) => {
+        if (err) return reject(err)
+        else return resolve(str)
+      });
+    });
   }
 }
