@@ -30,6 +30,13 @@ async function problemA() {
 
   // async await version
   // Tu código acá:
+  const blue = async (param) => {
+    const stanza = await exerciseUtils.promisifiedReadFile(param)
+    exerciseUtils.blue(stanza)
+  }
+  blue('poem-one/stanza-01.txt')
+  blue('poem-one/stanza-02.txt')
+  console.log('done');
 }
 
 async function problemB() {
